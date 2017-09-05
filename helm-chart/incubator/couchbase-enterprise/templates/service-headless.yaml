@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata: 
+  name: couchbase-cluster
+  labels: 
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec: 
+  selector: 
+    app: {{ template "fullname" . }}
+  clusterIP: None
+  ports:
+  - name: foo
+    port: 1234
+    targetPort: 1234

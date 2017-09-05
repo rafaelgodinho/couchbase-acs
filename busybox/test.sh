@@ -1,0 +1,1 @@
+kubectl exec busybox1 --namespace default -i -t -- sh -il
