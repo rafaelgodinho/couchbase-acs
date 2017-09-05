@@ -37,17 +37,36 @@ kubectl get nodes
 
 ### Sandbox
 
-- Go to the couchbase chart template directory ([helm-chart/incubator/couchbase](helm-chart/incubator/couchbase))
-- Execute the following command:
+Go to the couchbase chart template directory ([helm-chart/incubator/couchbase](helm-chart/incubator/couchbase)).
+
+Execute the following command:
 
 ```
 helm install --namespace couchbase --name couchbase ./
 ```
 
-Then, wait for the deployment to be completed. It takes some time with some Docker images pull errors that need to be investigated.
+Then, wait for the deployment to be completed. It may take some time to pull the Docker image.
 
- ```
-  watch kubectl get pods --namespace couchbase
- ```
+```
+watch kubectl get pods --namespace couchbase
+```
 
- ### Enterprise
+### Enterprise
+
+Go to the couchbase-enterprise chart template directory ([helm-chart/incubator/couchbase-enterprise](helm-chart/incubator/couchbase-enterprise)).
+
+Execute the following command:
+
+```
+helm install --namespace couchbase-enterprise --name couchbase ./
+```
+
+Then, wait for the deployment to be completed. It may take some time to pull the Docker image.
+
+```
+watch kubectl get pods --namespace couchbase-enterprise
+```
+
+# TODO
+- Automate Couchbase configuration when the pod starts.
+    -   This may be achievable using [postStart lifecycle handle](https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
