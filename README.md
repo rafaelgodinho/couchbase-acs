@@ -69,4 +69,4 @@ watch kubectl get pods --namespace couchbase-enterprise
 
 # TODO
 - Automate Couchbase configuration when the pod starts.
-    -   This may be achievable using [postStart lifecycle handle](https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
+    -   This may be achieved using [postStart lifecycle handle](https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
