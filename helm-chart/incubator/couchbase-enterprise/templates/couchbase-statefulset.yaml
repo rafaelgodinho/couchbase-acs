@@ -19,6 +19,86 @@ spec:
       containers:
       - name: couchbase
         image: couchbase/server:4.6.2
+        lifecycle:
+          postStart:
+            exec:
+              command: ["bash", "-c", "
+              hostname=$(hostname)\n
+              domainName=$(hostname -d)\n
+              nodeNameRegex='(.*-)'\n
+              [[ $hostname =~ $nodeNameRegex ]] &&\n
+              node0HostName=${BASH_REMATCH[1]}0\n
+              hostFQDN=$hostname.$domainName\n
+              clusterFQDN=$node0HostName.$domainName\n
+              adminUsername='admin'\n
+              adminPassword='SuperP@ssw0rd'\n
+
+              until pids=$(pidof runsv couchbase-server)\n
+              do\n
+                echo '*** Waiting for Couchbase Server' >> /temp.txt
+                sleep 1\n
+              done\n
+              echo '*** Couchbase Server has started' >> /temp.txt\n
+
+              while netstat -lnt | awk '$4 ~ /:8091$/ {exit 1}'\n
+              do\n
+                echo '*** Waiting for port 8091' >> /temp.txt\n
+                sleep 10\n
+              done\n
+
+              echo '*** Initializing Couchbase node' >> /temp.txt\n
+              output=`couchbase-cli node-init --cluster=$hostFQDN --node-init-hostname=$hostFQDN --user=$adminUsername --pass=$adminPassword`\n
+              echo -e '\tNode init output:' $output >> /temp.txt\n
+              echo '*** Couchbase node initialized' >> /temp.txt\n
+
+              if [[ $hostname == *-0 ]]; then\n
+                echo '*** Initializing Couchbase cluster' >> /temp.txt\n
+                totalRAM=$(grep MemTotal /proc/meminfo | awk '{print $2}')\n
+                dataRAM=$((50 * $totalRAM / 100000))\n
+                indexRAM=$((15 * $totalRAM / 100000))\n
+                
+                echo -e '\tCluster:' $clusterFQDN >> /temp.txt\n
+                echo -e '\tData RAM:' $dataRAM >> /temp.txt\n
+                echo -e '\tIndex RAM:' $indexRAM >> /temp.txt\n
+                output=`couchbase-cli cluster-init --cluster=$clusterFQDN --cluster-ramsize=$dataRAM --cluster-index-ramsize=$indexRAM --cluster-username=$adminUsername --cluster-password=$adminPassword --services=data,index,query,fts`\n
+                echo -e '\tCluster init output:' $output >> /temp.txt\n
+                echo '*** Couchbase cluster initialized' >> /temp.txt\n
+              else #nodes > 0\n
+                echo '*** Adding node to the cluster' >> /temp.txt\n
+                output=''\n
+                echo -e '\tOutput:' $output >> /temp.txt\n
+                expectedOutput=$(eval 'echo Server $hostFQDN:8091 added')\n
+                echo -e '\tExpected Output:' $expectedOutput >> /temp.txt\n
+                forceRestartOutput='Failed to reach erlang port mapper'\n
+                echo -e '\tForce Restart Output:' $forceRestartOutput >> /temp.txt\n
+
+                while [[ $output != $expectedOutput && ! $output =~ 'Node is already part of cluster.' ]]\n
+                do\n
+                  echo -e '\tAdding the node to the cluster' >> /temp.txt\n
+                  echo -e '\tCluster:' $clusterFQDN >> /temp.txt\n
+                  echo -e '\tServer:' $hostFQDN >> /temp.txt\n
+
+                  output=`couchbase-cli server-add --cluster=$clusterFQDN --user=$adminUsername --pass=$adminPassword --server-add=$hostFQDN --server-add-username=$adminUsername --server-add-password=$adminPassword --services=data,index,query,fts`\n
+                  echo -e '\tserver-add output:' $output >> /temp.txt\n
+                  if [[ $output == *$forceRestartOutput* ]]; then\n
+                    exit 1 #Force container restart\n
+                  fi\n
+                  sleep 10\n
+                done\n
+                echo '*** Node added to the cluster' >> /temp.txt\n
+
+                echo '*** Running couchbase-cli rebalance' >> /temp.txt\n
+                output=''\n
+                while [[ ! $output =~ 'SUCCESS' ]]\n
+                do\n
+                  output=`couchbase-cli rebalance --cluster=$clusterFQDN --user=$adminUsername --pass=$adminPassword`\n
+
+                  echo -e \trebalance output \'$output\' >> /temp.txt\n
+                  sleep 10\n
+                done\n
+                echo '*** Configuration process completed' >> /temp.txt\n
+              fi\n
+              "]
         ports:
         - containerPort: 8091
         volumeMounts:
