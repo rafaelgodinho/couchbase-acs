@@ -1,0 +1,454 @@
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: couchbase
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: couchbase
+    spec:
+      dnsPolicy: ClusterFirst
+      nodeName: aci-connector
+      containers:
+      - name: couchbase
+        image: couchbase/server:4.6.2
+        imagePullPolicy: Always
+        ports:
+        - name: erlang
+          containerPort: 4369
+        - name: server8091
+          containerPort: 8091
+        - name: server8092
+          containerPort: 8092
+        - name: server8093
+          containerPort: 8093
+        - name: server8094
+          containerPort: 8094
+        - name: ssl18091
+          containerPort: 18091
+        - name: ssl18092
+          containerPort: 18092
+        - name: ssl18093
+          containerPort: 18093          
+        - name: index9100
+          containerPort: 9100
+        - name: index9101
+          containerPort: 9101
+        - name: index9102
+          containerPort: 9102
+        - name: index9103
+          containerPort: 9103
+        - name: index9104
+          containerPort: 9104
+        - name: index9105
+          containerPort: 9105
+        - name: internal9998
+          containerPort: 9998
+        - name: internal9999
+          containerPort: 9999
+        - name: nde21100
+          containerPort: 21100
+        - name: nde21101
+          containerPort: 21101
+        - name: nde21102
+          containerPort: 21102
+        - name: nde21103
+          containerPort: 21103
+        - name: nde21104
+          containerPort: 21104
+        - name: nde21105
+          containerPort: 21105
+        - name: nde21106
+          containerPort: 21106
+        - name: nde21107
+          containerPort: 21107
+        - name: nde21108
+          containerPort: 21108
+        - name: nde21109
+          containerPort: 21109
+        - name: nde21110
+          containerPort: 21110
+        - name: nde21111
+          containerPort: 21111
+        - name: nde21112
+          containerPort: 21112
+        - name: nde21113
+          containerPort: 21113
+        - name: nde21114
+          containerPort: 21114
+        - name: nde21115
+          containerPort: 21115
+        - name: nde21116
+          containerPort: 21116
+        - name: nde21117
+          containerPort: 21117
+        - name: nde21118
+          containerPort: 21118
+        - name: nde21119
+          containerPort: 21119
+        - name: nde21120
+          containerPort: 21120
+        - name: nde21121
+          containerPort: 21121
+        - name: nde21122
+          containerPort: 21122
+        - name: nde21123
+          containerPort: 21123
+        - name: nde21124
+          containerPort: 21124
+        - name: nde21125
+          containerPort: 21125
+        - name: nde21126
+          containerPort: 21126
+        - name: nde21127
+          containerPort: 21127
+        - name: nde21128
+          containerPort: 21128
+        - name: nde21129
+          containerPort: 21129
+        - name: nde21130
+          containerPort: 21130
+        - name: nde21131
+          containerPort: 21131
+        - name: nde21132
+          containerPort: 21132
+        - name: nde21133
+          containerPort: 21133
+        - name: nde21134
+          containerPort: 21134
+        - name: nde21135
+          containerPort: 21135
+        - name: nde21136
+          containerPort: 21136
+        - name: nde21137
+          containerPort: 21137
+        - name: nde21138
+          containerPort: 21138
+        - name: nde21139
+          containerPort: 21139
+        - name: nde21140
+          containerPort: 21140
+        - name: nde21141
+          containerPort: 21141
+        - name: nde21142
+          containerPort: 21142
+        - name: nde21143
+          containerPort: 21143
+        - name: nde21144
+          containerPort: 21144
+        - name: nde21145
+          containerPort: 21145
+        - name: nde21146
+          containerPort: 21146
+        - name: nde21147
+          containerPort: 21147
+        - name: nde21148
+          containerPort: 21148
+        - name: nde21149
+          containerPort: 21149
+        - name: nde21150
+          containerPort: 21150
+        - name: nde21151
+          containerPort: 21151
+        - name: nde21152
+          containerPort: 21152
+        - name: nde21153
+          containerPort: 21153
+        - name: nde21154
+          containerPort: 21154
+        - name: nde21155
+          containerPort: 21155
+        - name: nde21156
+          containerPort: 21156
+        - name: nde21157
+          containerPort: 21157
+        - name: nde21158
+          containerPort: 21158
+        - name: nde21159
+          containerPort: 21159
+        - name: nde21160
+          containerPort: 21160
+        - name: nde21161
+          containerPort: 21161
+        - name: nde21162
+          containerPort: 21162
+        - name: nde21163
+          containerPort: 21163
+        - name: nde21164
+          containerPort: 21164
+        - name: nde21165
+          containerPort: 21165
+        - name: nde21166
+          containerPort: 21166
+        - name: nde21167
+          containerPort: 21167
+        - name: nde21168
+          containerPort: 21168
+        - name: nde21169
+          containerPort: 21169
+        - name: nde21170
+          containerPort: 21170
+        - name: nde21171
+          containerPort: 21171
+        - name: nde21172
+          containerPort: 21172
+        - name: nde21173
+          containerPort: 21173
+        - name: nde21174
+          containerPort: 21174
+        - name: nde21175
+          containerPort: 21175
+        - name: nde21176
+          containerPort: 21176
+        - name: nde21177
+          containerPort: 21177
+        - name: nde21178
+          containerPort: 21178
+        - name: nde21179
+          containerPort: 21179
+        - name: nde21180
+          containerPort: 21180
+        - name: nde21181
+          containerPort: 21181
+        - name: nde21182
+          containerPort: 21182
+        - name: nde21183
+          containerPort: 21183
+        - name: nde21184
+          containerPort: 21184
+        - name: nde21185
+          containerPort: 21185
+        - name: nde21186
+          containerPort: 21186
+        - name: nde21187
+          containerPort: 21187
+        - name: nde21188
+          containerPort: 21188
+        - name: nde21189
+          containerPort: 21189
+        - name: nde21190
+          containerPort: 21190
+        - name: nde21191
+          containerPort: 21191
+        - name: nde21192
+          containerPort: 21192
+        - name: nde21193
+          containerPort: 21193
+        - name: nde21194
+          containerPort: 21194
+        - name: nde21195
+          containerPort: 21195
+        - name: nde21196
+          containerPort: 21196
+        - name: nde21197
+          containerPort: 21197
+        - name: nde21198
+          containerPort: 21198
+        - name: nde21199
+          containerPort: 21199
+        - name: nde21200
+          containerPort: 21200
+        - name: nde21201
+          containerPort: 21201
+        - name: nde21202
+          containerPort: 21202
+        - name: nde21203
+          containerPort: 21203
+        - name: nde21204
+          containerPort: 21204
+        - name: nde21205
+          containerPort: 21205
+        - name: nde21206
+          containerPort: 21206
+        - name: nde21207
+          containerPort: 21207
+        - name: nde21208
+          containerPort: 21208
+        - name: nde21209
+          containerPort: 21209
+        - name: nde21210
+          containerPort: 21210
+        - name: nde21211
+          containerPort: 21211
+        - name: nde21212
+          containerPort: 21212
+        - name: nde21213
+          containerPort: 21213
+        - name: nde21214
+          containerPort: 21214
+        - name: nde21215
+          containerPort: 21215
+        - name: nde21216
+          containerPort: 21216
+        - name: nde21217
+          containerPort: 21217
+        - name: nde21218
+          containerPort: 21218
+        - name: nde21219
+          containerPort: 21219
+        - name: nde21220
+          containerPort: 21220
+        - name: nde21221
+          containerPort: 21221
+        - name: nde21222
+          containerPort: 21222
+        - name: nde21223
+          containerPort: 21223
+        - name: nde21224
+          containerPort: 21224
+        - name: nde21225
+          containerPort: 21225
+        - name: nde21226
+          containerPort: 21226
+        - name: nde21227
+          containerPort: 21227
+        - name: nde21228
+          containerPort: 21228
+        - name: nde21229
+          containerPort: 21229
+        - name: nde21230
+          containerPort: 21230
+        - name: nde21231
+          containerPort: 21231
+        - name: nde21232
+          containerPort: 21232
+        - name: nde21233
+          containerPort: 21233
+        - name: nde21234
+          containerPort: 21234
+        - name: nde21235
+          containerPort: 21235
+        - name: nde21236
+          containerPort: 21236
+        - name: nde21237
+          containerPort: 21237
+        - name: nde21238
+          containerPort: 21238
+        - name: nde21239
+          containerPort: 21239
+        - name: nde21240
+          containerPort: 21240
+        - name: nde21241
+          containerPort: 21241
+        - name: nde21242
+          containerPort: 21242
+        - name: nde21243
+          containerPort: 21243
+        - name: nde21244
+          containerPort: 21244
+        - name: nde21245
+          containerPort: 21245
+        - name: nde21246
+          containerPort: 21246
+        - name: nde21247
+          containerPort: 21247
+        - name: nde21248
+          containerPort: 21248
+        - name: nde21249
+          containerPort: 21249
+        - name: nde21250
+          containerPort: 21250
+        - name: nde21251
+          containerPort: 21251
+        - name: nde21252
+          containerPort: 21252
+        - name: nde21253
+          containerPort: 21253
+        - name: nde21254
+          containerPort: 21254
+        - name: nde21255
+          containerPort: 21255
+        - name: nde21256
+          containerPort: 21256
+        - name: nde21257
+          containerPort: 21257
+        - name: nde21258
+          containerPort: 21258
+        - name: nde21259
+          containerPort: 21259
+        - name: nde21260
+          containerPort: 21260
+        - name: nde21261
+          containerPort: 21261
+        - name: nde21262
+          containerPort: 21262
+        - name: nde21263
+          containerPort: 21263
+        - name: nde21264
+          containerPort: 21264
+        - name: nde21265
+          containerPort: 21265
+        - name: nde21266
+          containerPort: 21266
+        - name: nde21267
+          containerPort: 21267
+        - name: nde21268
+          containerPort: 21268
+        - name: nde21269
+          containerPort: 21269
+        - name: nde21270
+          containerPort: 21270
+        - name: nde21271
+          containerPort: 21271
+        - name: nde21272
+          containerPort: 21272
+        - name: nde21273
+          containerPort: 21273
+        - name: nde21274
+          containerPort: 21274
+        - name: nde21275
+          containerPort: 21275
+        - name: nde21276
+          containerPort: 21276
+        - name: nde21277
+          containerPort: 21277
+        - name: nde21278
+          containerPort: 21278
+        - name: nde21279
+          containerPort: 21279
+        - name: nde21280
+          containerPort: 21280
+        - name: nde21281
+          containerPort: 21281
+        - name: nde21282
+          containerPort: 21282
+        - name: nde21283
+          containerPort: 21283
+        - name: nde21284
+          containerPort: 21284
+        - name: nde21285
+          containerPort: 21285
+        - name: nde21286
+          containerPort: 21286
+        - name: nde21287
+          containerPort: 21287
+        - name: nde21288
+          containerPort: 21288
+        - name: nde21289
+          containerPort: 21289
+        - name: nde21290
+          containerPort: 21290
+        - name: nde21291
+          containerPort: 21291
+        - name: nde21292
+          containerPort: 21292
+        - name: nde21293
+          containerPort: 21293
+        - name: nde21294
+          containerPort: 21294
+        - name: nde21295
+          containerPort: 21295
+        - name: nde21296
+          containerPort: 21296
+        - name: nde21297
+          containerPort: 21297
+        - name: nde21298
+          containerPort: 21298
+        - name: nde21299
+          containerPort: 21299
+        resources:
+          requests:
+            cpu: 4
+            memory: 3.5
