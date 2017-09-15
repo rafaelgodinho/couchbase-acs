@@ -1,0 +1,53 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {},
+  "variables": {},
+  "resources": [
+    {
+      "name": "myContainerGroup",
+      "type": "Microsoft.ContainerInstance/containerGroups",
+      "apiVersion": "2017-08-01-preview",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "containers": [
+          {
+            "name": "myssh",
+            "properties": {
+              "image": "rastasheep/ubuntu-sshd:14.04",
+              "resources": {
+                "requests": {
+                  "cpu": 4,
+                  "memoryInGb": 3.5
+                }
+              },
+              "ports": [
+                {
+                  "port": 22
+                },
+                {
+                  "port": 8091
+                }
+              ]
+            }
+          }
+        ],
+        "osType": "Linux",
+        "ipAddress": {
+          "type": "Public",
+          "ports": [
+            {
+              "protocol": "tcp",
+              "port": "22"
+            },
+            {
+              "protocol": "tcp",
+              "port": "8091"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "outputs": {}
+}

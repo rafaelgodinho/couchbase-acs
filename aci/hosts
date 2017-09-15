@@ -1,0 +1,10 @@
+root@caas-9076709db159462fb91f42dacde00389-1770409513-gxjrk:~# cat /etc/hosts
+# Kubernetes-managed hosts file.
+127.0.0.1       localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+fe00::0 ip6-mcastprefix
+fe00::1 ip6-allnodes
+fe00::2 ip6-allrouters
+10.244.55.3     caas-9076709db159462fb91f42dacde00389-1770409513-gxjrk
+127.0.0.1       40.80.155.88
